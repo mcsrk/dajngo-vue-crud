@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+local_settings.py
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Static files
+/staticfiles/
+
+# Media files
+/media/
+
+# Secret files
+.secret_key
+
+# IDE files
+.vscode/
+*.idea/
+
+# Django migrations
+**/migrations/
+
+# Compiled Python files
+*.pyc
+
+# Ignore test data
+test_*.py
+
+# Ignore virtual environment
+venv/
+.venv
