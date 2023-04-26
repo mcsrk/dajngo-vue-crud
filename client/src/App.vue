@@ -1,22 +1,37 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+ 
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div>
+    <h1>Companies</h1>
+    <ul>
+      <li v-for="company in companies" :key="company.company_id">
+        <h2>{{ company.company_name }}</h2>
+        <p>{{ company.company_id }}</p>
+        <p>{{ company.company_email }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
+<script>
+import api from './api'
+
+export default {
+  data() {
+    return {
+      companies: []
+    }
+  },
+  mounted() {
+    api.getCompanies()
+      .then(data => {
+        this.companies =  data
+      })
+  }
+}
+</script>
 <style scoped>
 header {
   line-height: 1.5;
