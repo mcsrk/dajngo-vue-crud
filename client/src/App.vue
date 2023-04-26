@@ -33,16 +33,5 @@
 </script>
 
 <style scoped>
-  .container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .list {
-    flex: 1;
-    margin: 1rem;
-    max-width: 500px;
-  }
+ 
 </style>

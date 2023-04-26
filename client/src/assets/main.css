@@ -8,6 +8,19 @@
   font-weight: normal;
 }
 
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 90%; /* set the width of the container to 90% */
+}
+
+.list {
+  flex: 1 0 calc(33.33% - 2rem); /* set flex-basis to 33.33% minus margin to allow 3 tables per row */
+  margin: 1rem;
+  max-width: 500px;
+}
+
 a,
 .green {
   text-decoration: none;
@@ -23,7 +36,6 @@ a,
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
     place-items: center;
   }
 
