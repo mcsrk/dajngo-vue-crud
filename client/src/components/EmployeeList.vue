@@ -7,7 +7,7 @@
   
 <script>
 
-    import DataTable from "@/components/DataTable.vue";
+    import DataTable from "@/components/common/DataTable.vue";
     import api from '../api'
 
     export default {
@@ -20,11 +20,13 @@
             employees: [],
         };
     },
-    mounted() {
-            api.getEmployees()
-            .then(data => {
-                this.employees =  data
-            })
-        },
+    async mounted() {
+        try {
+            const data = await api.getEmployees();
+            this.employees = data;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     };
 </script>

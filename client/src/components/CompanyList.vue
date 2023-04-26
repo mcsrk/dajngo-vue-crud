@@ -6,7 +6,7 @@
 </template>
   
 <script>
-    import DataTable from "@/components/DataTable.vue";
+    import DataTable from "@/components/common/DataTable.vue";
     import api from '../api'
 
     export default {
@@ -19,11 +19,13 @@
             companies: [],
         };
     },
-    mounted() {
-            api.getCompanies()
-            .then(data => {
-                this.companies =  data
-            })
-        },
+    async mounted() {
+        try {
+            const data = await api.getCompanies();
+            this.companies = data;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     };
 </script>
