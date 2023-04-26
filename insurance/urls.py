@@ -4,11 +4,13 @@ from rest_framework import routers
 
 from insurance.views import CompanyView
 from insurance.views import BranchView
+from insurance.views import EmployeeView
 
 
 router = routers.DefaultRouter()
 router.register(r'companies', CompanyView, 'companies')
 router.register(r'branches', BranchView, 'branches')
+router.register(r'employees', EmployeeView, 'employees')
 
 
 urlpatterns = [

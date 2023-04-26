@@ -14,4 +14,4 @@ class Branch(models.Model):
         db_table = 'branch'
 
     def __str__(self):
-        return self.company_name
+        return self.branch_name
