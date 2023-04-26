@@ -30,7 +30,7 @@ local_settings.py
 *.pyc
 
 # Ignore test data
-test_*.py
+test_dummy_*.py
 
 # Ignore virtual environment
 venv/
