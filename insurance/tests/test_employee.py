@@ -13,45 +13,45 @@ class EmployeeAPITestCase(APITestCase):
     def setUp(self):
         self.admin = Admin.objects.create(
             name="John",
-            admin_username="johndoe",
-            admin_password="password",
-            admin_email="john@example.com"
+            username="johndoe",
+            password="password",
+            email="john@example.com"
         )
 
         self.company = Company.objects.create(
             name="Test Company",
-            company_email="test@example.com",
+            email="test@example.com",
             admin=self.admin
         )
 
         self.branch = Branch.objects.create(
             name="Test Branch",
-            branch_city="Test City",
-            branch_phone="1234567890",
+            city="Test City",
+            phone="1234567890",
             company=self.company
         )
 
         self.employee = Employee.objects.create(
             name="John Smith",
-            employee_phone="1234567890",
-            employee_uid="ABCD1234",
-            employee_email="john@example.com",
+            phone="1234567890",
+            uid="ABCD1234",
+            email="john@example.com",
             branch=self.branch
         )
 
         self.valid_payload = {
             'name': 'Updated Employee Name',
-            'employee_phone': '0987654321',
-            'employee_uid': 'WXYZ5678',
-            'employee_email': 'updated-email@example.com',
-            'branch': self.branch.branch_id
+            'phone': '0987654321',
+            'uid': 'WXYZ5678',
+            'email': 'updated-email@example.com',
+            'branch': self.branch.id
         }
 
         self.invalid_payload = {
             'name': '',
-            'employee_phone': 'invalid-phone',
-            'employee_uid': 'invalid-uid',
-            'employee_email': 'invalid-email',
+            'phone': 'invalid-phone',
+            'uid': 'invalid-uid',
+            'email': 'invalid-email',
             'branch': 999  # Non-existent branch ID
         }
 
@@ -66,8 +66,8 @@ class EmployeeAPITestCase(APITestCase):
     def test_get_valid_single_employee(self):
         # Ensure we can get a single employee with a valid ID
         response = self.client.get(
-            reverse('employees-detail', args=[self.employee.employee_id]))
-        employee = Employee.objects.get(employee_id=self.employee.employee_id)
+            reverse('employees-detail', args=[self.employee.id]))
+        employee = Employee.objects.get(id=self.employee.id)
         serializer = EmployeeSerializer(employee)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -98,12 +98,12 @@ class EmployeeAPITestCase(APITestCase):
     def test_delete_valid_employee(self):
         # Ensure we can delete an existing employee
         response = self.client.delete(
-            reverse('employees-detail', args=[self.employee.employee_id]))
+            reverse('employees-detail', args=[self.employee.id]))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         # Ensure the employee no longer exists in the database
         with self.assertRaises(Employee.DoesNotExist):
-            Employee.objects.get(employee_id=self.employee.employee_id)
+            Employee.objects.get(id=self.employee.id)
 
     def test_delete_invalid_employee(self):
         # Ensure we get a 404 response when trying to delete an employee with an invalid ID
