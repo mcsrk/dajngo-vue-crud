@@ -1,28 +1,40 @@
 <template>
-    <table>
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th> 
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td> 
-        </tr>
-      </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Other info</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in items" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ getInfo(item) }}</td><!-- display item as string -->
+      </tr>
+    </tbody>
+  </table>
 </template>
 
+
 <script>
-    export default {
-      name: "DataTable",
-      props: {
-          items: Array,
-      },
-    };
-</script>  
+export default {
+  name: "DataTable",
+  props: {
+    items: Array,
+  },
+  methods: {
+    getInfo(item) {
+      const info = Object.entries(item)
+        .filter(([key]) => key !== "id" && key !== "name")
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(", ");
+      return info;
+    },
+  },
+};
+</script> 
 
 <style scoped>
 table {
