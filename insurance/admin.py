@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from insurance.models import Company
-from insurance.models import Branch
-from insurance.models import Employee
-from insurance.models import Admin
+from insurance.models import Company, Branch, Employee, Admin
 
 # Register your models here.
 admin.site.register(Company)

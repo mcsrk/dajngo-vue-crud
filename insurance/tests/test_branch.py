@@ -4,6 +4,7 @@ from django.urls import reverse
 from insurance.models import Company, Admin, Branch
 from insurance.serializers import BranchSerializer
 
+# CRUD Test for Branch
 
 class BranchAPITestCase(APITestCase):
     client = APIClient()
