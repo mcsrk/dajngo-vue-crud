@@ -55,6 +55,6 @@ tr {
   border-bottom: 1px solid #d9d9d9;
 }
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #3b3b3b;
 }
 </style>

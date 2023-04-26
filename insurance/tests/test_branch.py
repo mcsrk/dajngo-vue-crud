@@ -13,35 +13,35 @@ class BranchAPITestCase(APITestCase):
     def setUp(self):
         self.admin = Admin.objects.create(
             name="John",
-            admin_username="johndoe",
-            admin_password="password",
-            admin_email="john@example.com"
+            username="johndoe",
+            password="password",
+            email="john@example.com"
         )
 
         self.company = Company.objects.create(
             name="Test Company",
-            company_email="test@example.com",
+            email="test@example.com",
             admin=self.admin
         )
 
         self.branch = Branch.objects.create(
             name="Test Branch",
-            branch_city="Test City",
-            branch_phone="12345678",
+            city="Test City",
+            phone="12345678",
             company=self.company
         )
 
         self.valid_payload = {
             'name': 'Updated Branch Name',
-            'branch_city': 'Updated City',
-            'branch_phone': '87654321',
-            'company': self.company.company_id
+            'city': 'Updated City',
+            'phone': '87654321',
+            'company': self.company.id
         }
 
         self.invalid_payload = {
             'name': '',
-            'branch_city': 'Test City',
-            'branch_phone': '12345678',
+            'city': 'Test City',
+            'phone': '12345678',
             'company': 999  # Non-existent company ID
         }
 
@@ -56,8 +56,8 @@ class BranchAPITestCase(APITestCase):
     def test_get_valid_single_branch(self):
         # Ensure we can get a single branch with a valid ID
         response = self.client.get(
-            reverse('branches-detail', args=[self.branch.branch_id]))
-        branch = Branch.objects.get(branch_id=self.branch.branch_id)
+            reverse('branches-detail', args=[self.branch.id]))
+        branch = Branch.objects.get(id=self.branch.id)
         serializer = BranchSerializer(branch)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -88,7 +88,7 @@ class BranchAPITestCase(APITestCase):
     def test_update_branch(self):
         # Ensure we can update an existing branch
         response = self.client.put(
-            reverse('branches-detail', args=[self.branch.branch_id]),
+            reverse('branches-detail', args=[self.branch.id]),
             data=self.valid_payload,
             format='json'
         )
@@ -97,6 +97,6 @@ class BranchAPITestCase(APITestCase):
     def test_delete_branch(self):
         # Ensure we can delete a branch
         response = self.client.delete(
-            reverse('branches-detail', args=[self.branch.branch_id])
+            reverse('branches-detail', args=[self.branch.id])
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

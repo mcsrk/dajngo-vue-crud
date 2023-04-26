@@ -13,26 +13,26 @@ class CompanyAPITestCase(APITestCase):
     def setUp(self):
         self.admin = Admin.objects.create(
             name="John",
-            admin_username="johndoe",
-            admin_password="password",
-            admin_email="john@example.com"
+            username="johndoe",
+            password="password",
+            email="john@example.com"
         )
 
         self.company = Company.objects.create(
             name="Test Company",
-            company_email="test@example.com",
+            email="test@example.com",
             admin=self.admin
         )
 
         self.valid_payload = {
             'name': 'Updated Company Name',
-            'company_email': 'new-email@example.com',
-            'admin': self.admin.admin_id
+            'email': 'new-email@example.com',
+            'admin': self.admin.id
         }
 
         self.invalid_payload = {
             'name': '',
-            'company_email': 'invalid-email',
+            'email': 'invalid-email',
             'admin': 999  # Non-existent admin ID
         }
 
@@ -47,8 +47,8 @@ class CompanyAPITestCase(APITestCase):
     def test_get_valid_single_company(self):
         # Ensure we can get a single company with a valid ID
         response = self.client.get(
-            reverse('companies-detail', args=[self.company.company_id]))
-        company = Company.objects.get(company_id=self.company.company_id)
+            reverse('companies-detail', args=[self.company.id]))
+        company = Company.objects.get(id=self.company.id)
         serializer = CompanySerializer(company)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -79,7 +79,7 @@ class CompanyAPITestCase(APITestCase):
     def test_update_company(self):
         # Ensure we can update an existing company
         response = self.client.put(
-            reverse('companies-detail', args=[self.company.company_id]),
+            reverse('companies-detail', args=[self.company.id]),
             data=self.valid_payload,
             format='json'
         )
@@ -88,6 +88,6 @@ class CompanyAPITestCase(APITestCase):
     def test_delete_company(self):
         # Ensure we can delete a company
         response = self.client.delete(
-            reverse('companies-detail', args=[self.company.company_id])
+            reverse('companies-detail', args=[self.company.id])
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
