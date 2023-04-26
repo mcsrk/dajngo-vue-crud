@@ -19,12 +19,27 @@ export default {
       })
   },
   getBranches() {
-    return api.get('branches/')
+    return api
+      .get('/branches/')
+      .then((response) => {
+        console.log(response.data)
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+        return []
+      })
   },
   getEmployees() {
-    return api.get('employees/')
-  },
-  getAdmins() {
-    return api.get('admin/')
+    return api
+      .get('/employees/')
+      .then((response) => {
+        console.log(response.data)
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+        return []
+      })
   }
 }

@@ -3,60 +3,46 @@
 </script>
 
 <template>
-  <div>
-    <h1>Companies</h1>
-    <ul>
-      <li v-for="company in companies" :key="company.company_id">
-        <h2>{{ company.company_name }}</h2>
-        <p>{{ company.company_id }}</p>
-        <p>{{ company.company_email }}</p>
-      </li>
-    </ul>
+  <div class="container">
+    <div class="list">
+      <CompanyList />
+    </div>
+    <div class="list">
+      <BranchList />
+    </div>
+    <div class="list">
+      <EmployeeList />
+    </div>
   </div>
 </template>
 
+
 <script>
-import api from './api'
+  import CompanyList from './components/CompanyList.vue';
+  import BranchList from './components/BranchList.vue';
+  import EmployeeList from './components/EmployeeList.vue';
 
-export default {
-  data() {
-    return {
-      companies: []
-    }
-  },
-  mounted() {
-    api.getCompanies()
-      .then(data => {
-        this.companies =  data
-      })
-  }
-}
+  export default {
+    name: 'App',
+    components: {
+    CompanyList,
+    BranchList,
+    EmployeeList
+},
+  };
 </script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  .container {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
+    justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
   }
-}
+
+  .list {
+    flex: 1;
+    margin: 1rem;
+    max-width: 500px;
+  }
 </style>
