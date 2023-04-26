@@ -5,31 +5,33 @@ from insurance.models import Company, Admin
 from insurance.serializers import CompanySerializer
 
 # Tests for company
+
+
 class CompanyAPITestCase(APITestCase):
     client = APIClient()
 
     def setUp(self):
         self.admin = Admin.objects.create(
-            admin_name="John",
+            name="John",
             admin_username="johndoe",
             admin_password="password",
             admin_email="john@example.com"
         )
 
         self.company = Company.objects.create(
-            company_name="Test Company",
+            name="Test Company",
             company_email="test@example.com",
             admin=self.admin
         )
 
         self.valid_payload = {
-            'company_name': 'Updated Company Name',
+            'name': 'Updated Company Name',
             'company_email': 'new-email@example.com',
             'admin': self.admin.admin_id
         }
 
         self.invalid_payload = {
-            'company_name': '',
+            'name': '',
             'company_email': 'invalid-email',
             'admin': 999  # Non-existent admin ID
         }

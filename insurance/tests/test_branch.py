@@ -6,39 +6,40 @@ from insurance.serializers import BranchSerializer
 
 # CRUD Test for Branch
 
+
 class BranchAPITestCase(APITestCase):
     client = APIClient()
 
     def setUp(self):
         self.admin = Admin.objects.create(
-            admin_name="John",
+            name="John",
             admin_username="johndoe",
             admin_password="password",
             admin_email="john@example.com"
         )
 
         self.company = Company.objects.create(
-            company_name="Test Company",
+            name="Test Company",
             company_email="test@example.com",
             admin=self.admin
         )
 
         self.branch = Branch.objects.create(
-            branch_name="Test Branch",
+            name="Test Branch",
             branch_city="Test City",
             branch_phone="12345678",
             company=self.company
         )
 
         self.valid_payload = {
-            'branch_name': 'Updated Branch Name',
+            'name': 'Updated Branch Name',
             'branch_city': 'Updated City',
             'branch_phone': '87654321',
             'company': self.company.company_id
         }
 
         self.invalid_payload = {
-            'branch_name': '',
+            'name': '',
             'branch_city': 'Test City',
             'branch_phone': '12345678',
             'company': 999  # Non-existent company ID

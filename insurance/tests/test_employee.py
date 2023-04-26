@@ -12,27 +12,27 @@ class EmployeeAPITestCase(APITestCase):
 
     def setUp(self):
         self.admin = Admin.objects.create(
-            admin_name="John",
+            name="John",
             admin_username="johndoe",
             admin_password="password",
             admin_email="john@example.com"
         )
 
         self.company = Company.objects.create(
-            company_name="Test Company",
+            name="Test Company",
             company_email="test@example.com",
             admin=self.admin
         )
 
         self.branch = Branch.objects.create(
-            branch_name="Test Branch",
+            name="Test Branch",
             branch_city="Test City",
             branch_phone="1234567890",
             company=self.company
         )
 
         self.employee = Employee.objects.create(
-            employee_name="John Smith",
+            name="John Smith",
             employee_phone="1234567890",
             employee_uid="ABCD1234",
             employee_email="john@example.com",
@@ -40,7 +40,7 @@ class EmployeeAPITestCase(APITestCase):
         )
 
         self.valid_payload = {
-            'employee_name': 'Updated Employee Name',
+            'name': 'Updated Employee Name',
             'employee_phone': '0987654321',
             'employee_uid': 'WXYZ5678',
             'employee_email': 'updated-email@example.com',
@@ -48,7 +48,7 @@ class EmployeeAPITestCase(APITestCase):
         }
 
         self.invalid_payload = {
-            'employee_name': '',
+            'name': '',
             'employee_phone': 'invalid-phone',
             'employee_uid': 'invalid-uid',
             'employee_email': 'invalid-email',
